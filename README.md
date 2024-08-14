@@ -2,7 +2,7 @@
 
 Volto Add-On `@rohberg/volto-slate-glossary` adds tooltips for glossary terms of [collective.glossary](https://github.com/collective/collective.glossary)
 
-![Tooltips @rohberg/volto-slate-glossary](https://github.com/rohberg/volto-slate-glossary/raw/main/public/volto-slate-glossary-tooltips.png)
+![Tooltips @rohberg/volto-slate-glossary](https://github.com/rohberg/volto-slate-glossary/raw/main/pubimages/volto-slate-glossary-tooltips.png)
 
 Determine where to apply tooltips in your project by match configuration:
 

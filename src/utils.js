@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { flatten } from 'lodash';
 import { Popup } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
-
 /**
  * import from @plone/volto-slate Leaf when ready there
  * @param {String} children text to be decorated
@@ -55,6 +54,9 @@ export const TextWithGlossaryTooltips = ({ text }) => {
     glossaryterms.forEach((term) => {
       result = result.map((chunk) => {
         if (chunk.type === 'text') {
+          if (!chunk.val.split) {
+            return chunk;
+          }
           var splittedtext;
           // regex word boundary does ignore umlauts and other non ascii
           if (['ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü'].includes(term.term[0])) {

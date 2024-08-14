@@ -6,24 +6,24 @@ Volto Add-On `@rohberg/volto-slate-glossary` adds tooltips for glossary terms of
 
 Determine where to apply tooltips in your project by match configuration:
 
-    import { Tooltips } from '@rohberg/volto-slate-glossary/components';
+```javascript
+import { Tooltips } from '@rohberg/volto-slate-glossary';
 
-    export default function applyConfig(config) {
-        config.settings.appExtras = [
-            ...config.settings.appExtras,
-            {
-            match: '/documentation',
-            component: Tooltips,
-            },
-            {
-            match: '/news',
-            component: Tooltips,
-            },
-        ];
+export default function applyConfig(config) {
+  config.settings.appExtras = [
+    ...config.settings.appExtras,
+    {
+    match: '/documentation',
+    component: Tooltips,
+    },
+    {
+    match: '/news',
+    component: Tooltips,
+    },
+  ];
 
-        return config;
-    }
-
+}
+```
 
 Install Plone Add-On [collective.glossary](https://github.com/collective/collective.glossary) in your backend.
 

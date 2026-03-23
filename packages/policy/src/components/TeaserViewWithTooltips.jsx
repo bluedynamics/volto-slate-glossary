@@ -9,10 +9,8 @@ const TeaserView = (props) => {
         ...props,
         data: {
           ...props.data,
-          description: TextWithGlossaryTooltips({
-            text: props.data.description,
-          }),
-          title: TextWithGlossaryTooltips({ text: props.data.title }),
+          description: <TextWithGlossaryTooltips text={props.data.description} />,
+          title: <TextWithGlossaryTooltips text={props.data.title} />,
         },
       }}
     />

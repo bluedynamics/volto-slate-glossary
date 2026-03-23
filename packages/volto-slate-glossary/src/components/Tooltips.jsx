@@ -223,43 +223,35 @@ const calculateTexts = (content, glossaryterms) => {
   const blocks = content?.blocks;
   const blocks_layout = content?.blocks_layout;
 
+  function processText(el) {
+    if (!el) return;
+    const key = uuidv5(el, MY_NAMESPACE);
+    if (Object.keys(result).includes(key)) return;
+    const [value, newTerms] = enhanceTextWithTooltips(
+      el,
+      remainingGlossaryterms,
+    );
+    result[key] = value;
+    remainingGlossaryterms = newTerms;
+  }
+
+  function processSlateValue(slateValue) {
+    const arrayOfStrings = flattenDeep(serializeNodes(slateValue));
+    arrayOfStrings.forEach((str) => {
+      if (str.length === 0) return;
+      processText(str);
+    });
+  }
+
   function iterateOverBlocks(blocks, blocks_layout) {
     blocks_layout?.items &&
       blocks_layout.items.forEach((blockid) => {
-        [blocks[blockid].title, blocks[blockid].description].forEach((el) => {
-          if (el) {
-            const key = uuidv5(el, MY_NAMESPACE);
-            if (Object.keys(result).includes(key)) {
-              return;
-            }
-            const [value, newTerms] = enhanceTextWithTooltips(
-              el,
-              remainingGlossaryterms,
-            );
-            result[key] = value;
-            remainingGlossaryterms = newTerms;
-          }
-        });
+        [blocks[blockid].title, blocks[blockid].description].forEach(
+          processText,
+        );
         if (blocks[blockid].value) {
           // Simple slate block
-          const arrayOfStrings = flattenDeep(
-            serializeNodes(blocks[blockid].value),
-          );
-          arrayOfStrings.forEach((str) => {
-            if (str.length === 0) {
-              return;
-            }
-            const key = uuidv5(str, MY_NAMESPACE);
-            if (Object.keys(result).includes(key)) {
-              return;
-            }
-            const [value, newTerms] = enhanceTextWithTooltips(
-              str,
-              remainingGlossaryterms,
-            );
-            result[key] = value;
-            remainingGlossaryterms = newTerms;
-          });
+          processSlateValue(blocks[blockid].value);
         } else {
           // Nested blocks
           // block type 'gridBlock' or '"accordionPanel"
@@ -281,24 +273,40 @@ const calculateTexts = (content, glossaryterms) => {
             );
           }
         }
+        // Slate content stored as 'content' property (e.g. InfoBox)
+        if (
+          blocks[blockid].content &&
+          Array.isArray(blocks[blockid].content)
+        ) {
+          processSlateValue(blocks[blockid].content);
+        }
+        // Table cell values
+        if (blocks[blockid].table?.rows) {
+          blocks[blockid].table.rows.forEach((row) => {
+            row.cells?.forEach((cell) => {
+              if (cell.value) {
+                processSlateValue(cell.value);
+              }
+            });
+          });
+        }
+        // Slider slide text
+        if (blocks[blockid].slides) {
+          blocks[blockid].slides.forEach((slide) => {
+            [slide.title, slide.description].forEach(processText);
+          });
+        }
+        // CardSection column text
+        if (blocks[blockid].columns) {
+          blocks[blockid].columns.forEach((column) => {
+            [column.title, column.description].forEach(processText);
+          });
+        }
       });
   }
   iterateOverBlocks(blocks, blocks_layout);
 
-  [content?.title, content?.description].forEach((el) => {
-    if (el) {
-      const key = uuidv5(el, MY_NAMESPACE);
-      if (Object.keys(result).includes(key)) {
-        return;
-      }
-      const [value, newTerms] = enhanceTextWithTooltips(
-        el,
-        remainingGlossaryterms,
-      );
-      result[key] = value;
-      remainingGlossaryterms = newTerms;
-    }
-  });
+  [content?.title, content?.description].forEach(processText);
 
   return result;
 };

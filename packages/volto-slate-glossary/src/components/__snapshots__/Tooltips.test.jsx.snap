@@ -383,22 +383,46 @@ exports[`Tooltips in general  – NO tooltips if route doesn't match configurati
         Python tutorial
       </h1>
       <p>
-        Üben macht den Meister.
+        <span
+          class=""
+        >
+          Üben macht den Meister.
+        </span>
       </p>
       <p>
-        Wir üben das. Die Abkürzung AB ist im Glossar erklärt. Wir verwenden AB ab Donnerstag.
+        <span
+          class=""
+        >
+          Wir üben das. Die Abkürzung AB ist im Glossar erklärt. Wir verwenden AB ab Donnerstag.
+        </span>
       </p>
       <p>
-        Bij volledige elektrificatie: &lt;strong&gt;Canyon: Tot -57% of tot -17 µg NO2/m3&lt;/strong&gt;
+        <span
+          class=""
+        >
+          Bij volledige elektrificatie: &lt;strong&gt;Canyon: Tot -57% of tot -17 µg NO2/m3&lt;/strong&gt;
+        </span>
       </p>
       <p>
-        In automn, Aბㄱ is something you should care about.
+        <span
+          class=""
+        >
+          In automn, Aბㄱ is something you should care about.
+        </span>
       </p>
       <p>
-        Het laatste 8-uurgemiddelde van een dag wordt berekend van 16:00 uur tot 24:00 uur.
+        <span
+          class=""
+        >
+          Het laatste 8-uurgemiddelde van een dag wordt berekend van 16:00 uur tot 24:00 uur.
+        </span>
       </p>
       <p>
-        Morgen üben wir weiter.
+        <span
+          class=""
+        >
+          Morgen üben wir weiter.
+        </span>
       </p>
     </div>
     <div

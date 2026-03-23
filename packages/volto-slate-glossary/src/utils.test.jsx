@@ -34,6 +34,36 @@ describe('TextWithGlossaryTooltips', () => {
     expect(container).toHaveTextContent('Hello World');
   });
 
+  it('always wraps output in a span element for consistent SSR/client rendering', () => {
+    // No tooltips configured — should still return a <span>
+    const store = mockStore(baseStore);
+    const { container } = render(
+      <Wrapper store={store}>
+        <TextWithGlossaryTooltips text="Some text" />
+      </Wrapper>,
+    );
+    const span = container.querySelector('span');
+    expect(span).not.toBeNull();
+    expect(span).toHaveTextContent('Some text');
+  });
+
+  it('wraps output in span when pathname does not match', () => {
+    const store = mockStore({
+      ...baseStore,
+      glossarytooltipterms: {
+        result: { items: [], items_total: 0 },
+      },
+    });
+    const { container } = render(
+      <Wrapper store={store}>
+        <TextWithGlossaryTooltips text="Mismatched path" />
+      </Wrapper>,
+    );
+    const span = container.querySelector('span');
+    expect(span).not.toBeNull();
+    expect(span).toHaveTextContent('Mismatched path');
+  });
+
   it('does not throw hooks error when number of instances changes between renders', () => {
     const store = mockStore(baseStore);
 

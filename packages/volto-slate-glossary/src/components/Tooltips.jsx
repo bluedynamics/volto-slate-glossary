@@ -274,10 +274,7 @@ const calculateTexts = (content, glossaryterms) => {
           }
         }
         // Slate content stored as 'content' property (e.g. InfoBox)
-        if (
-          blocks[blockid].content &&
-          Array.isArray(blocks[blockid].content)
-        ) {
+        if (blocks[blockid].content && Array.isArray(blocks[blockid].content)) {
           processSlateValue(blocks[blockid].content);
         }
         // Table cell values

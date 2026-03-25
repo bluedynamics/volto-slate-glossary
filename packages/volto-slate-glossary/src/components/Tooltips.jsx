@@ -278,7 +278,10 @@ const calculateTexts = (content, glossaryterms) => {
           processSlateValue(blocks[blockid].content);
         }
         // Table cell values
-        if (blocks[blockid].table?.rows && Array.isArray(blocks[blockid].table.rows)) {
+        if (
+          blocks[blockid].table?.rows &&
+          Array.isArray(blocks[blockid].table.rows)
+        ) {
           blocks[blockid].table.rows.forEach((row) => {
             row.cells?.forEach((cell) => {
               if (cell.value) {

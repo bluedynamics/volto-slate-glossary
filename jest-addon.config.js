@@ -1,12 +1,8 @@
 module.exports = {
-  roots: [
-    '<rootDir>/../../../packages',
-    '<rootDir>/../../../addons',
-  ],
+  roots: ['<rootDir>/../../../packages'],
   testMatch: ['**/?(*.)+(spec|test).[jt]s?(x)'],
   collectCoverageFrom: [
     '<rootDir>/../../../packages/**/src/**/*.{js,jsx,ts,tsx}',
-    '<rootDir>/../../../addons/**/src/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
   ],
   transformIgnorePatterns: ['node_modules/(?!(volto-slate|@plone/volto)/)'],

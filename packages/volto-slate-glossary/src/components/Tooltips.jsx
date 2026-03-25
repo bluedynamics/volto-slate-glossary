@@ -294,7 +294,7 @@ const calculateTexts = (content, glossaryterms) => {
           });
         }
         // CardSection column text
-        if (blocks[blockid].columns) {
+        if (blocks[blockid].columns && Array.isArray(blocks[blockid].columns)) {
           blocks[blockid].columns.forEach((column) => {
             [column.title, column.description].forEach(processText);
           });

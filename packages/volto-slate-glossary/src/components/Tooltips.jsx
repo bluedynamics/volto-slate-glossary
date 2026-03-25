@@ -278,7 +278,7 @@ const calculateTexts = (content, glossaryterms) => {
           processSlateValue(blocks[blockid].content);
         }
         // Table cell values
-        if (blocks[blockid].table?.rows) {
+        if (blocks[blockid].table?.rows && Array.isArray(blocks[blockid].table.rows)) {
           blocks[blockid].table.rows.forEach((row) => {
             row.cells?.forEach((cell) => {
               if (cell.value) {
@@ -288,7 +288,7 @@ const calculateTexts = (content, glossaryterms) => {
           });
         }
         // Slider slide text
-        if (blocks[blockid].slides) {
+        if (blocks[blockid].slides && Array.isArray(blocks[blockid].slides)) {
           blocks[blockid].slides.forEach((slide) => {
             [slide.title, slide.description].forEach(processText);
           });

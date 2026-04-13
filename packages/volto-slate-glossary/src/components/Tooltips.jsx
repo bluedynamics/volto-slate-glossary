@@ -173,19 +173,20 @@ export const enhanceTextWithTooltips = (text, remainingGlossaryterms) => {
         let idx = remainingGlossaryterms.findIndex(
           (variant) => variant.term.toLowerCase() === el.val.toLowerCase(),
         );
-        let definition = remainingGlossaryterms[idx]?.definition || '';
-        switch (definition.length) {
-          case 0:
-            definition = '';
-            break;
-          case 1:
-            definition = definition[0];
-            break;
-          default:
-            let arrayOfListNodes = definition
-              .map((el) => `<li>${el}</li>`)
-              .join('');
-            definition = `<ol>${arrayOfListNodes}</ol>`;
+        let definition = remainingGlossaryterms[idx]?.definition;
+        if (
+          !definition ||
+          (Array.isArray(definition) && definition.length === 0)
+        ) {
+          return applyLineBreakSupport(el.val);
+        }
+        if (definition.length === 1) {
+          definition = definition[0];
+        } else {
+          let arrayOfListNodes = definition
+            .map((el) => `<li>${el}</li>`)
+            .join('');
+          definition = `<ol>${arrayOfListNodes}</ol>`;
         }
         const TooltipPopup = config.getComponent('TooltipPopup').component;
         return (
